@@ -1,0 +1,51 @@
+name: Release Launcher
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: launcher/package-lock.json
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: launcher/src-tauri
+
+      - name: Cài dependency & build Tauri (NSIS)
+        working-directory: launcher
+        run: |
+          npm ci
+          npx tauri build --bundles nsis
+
+      - name: Đổi tên thành AllSoftDesktop-Setup.exe
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem launcher/src-tauri/target/release/bundle/nsis -Filter *-setup.exe | Select-Object -First 1
+          if (-not $exe) { $exe = Get-ChildItem launcher/src-tauri/target/release/bundle/nsis -Filter *.exe | Select-Object -First 1 }
+          if (-not $exe) { throw 'Không tìm thấy bộ cài NSIS' }
+          Copy-Item $exe.FullName AllSoftDesktop-Setup.exe
+          $portable = 'launcher/src-tauri/target/release/allsoft-desktop.exe'
+          if (Test-Path $portable) { Copy-Item $portable AllSoftDesktop-Portable.exe }
+          Get-FileHash AllSoftDesktop-Setup.exe -Algorithm SHA256 | ForEach-Object { "$($_.Hash)  AllSoftDesktop-Setup.exe" } | Set-Content SHA256SUMS.txt
+
+      - name: Đăng lên GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            AllSoftDesktop-Setup.exe
+            AllSoftDesktop-Portable.exe
+            SHA256SUMS.txt
+          generate_release_notes: true
+          fail_on_unmatched_files: false

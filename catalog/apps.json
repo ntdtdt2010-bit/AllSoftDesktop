@@ -1,0 +1,472 @@
+{
+  "$schema": "./apps.schema.json",
+  "catalog_version": 2,
+  "updated_at": "2026-11-16T00:26:34.727Z",
+  "repo": "ntdtdt2010-bit/AllSoftDesktop",
+  "site_url": "https://ntdtdt2010-bit.github.io/AllSoftDesktop",
+  "branding": {
+    "app_name": "AllSoft Desktop",
+    "author": "Created By Mr. Dương",
+    "subbrand": "CREATIVE X TECHNOLOGY",
+    "logo_url": "/AllSoftDesktop/logo.png",
+    "icon_url": "/AllSoftDesktop/icon.png",
+    "primary_color": "#B5943B",
+    "hero_badge": "Hệ sinh thái chuẩn hóa máy trạm",
+    "hero_title": "Cài đặt & Chuẩn hóa Máy trạm",
+    "hero_highlight": "Tự động & Thông minh",
+    "hero_subtitle": "Giải pháp đồng bộ hóa phần mềm văn phòng, y tế, chữ ký số và driver thiết bị ngoại vi tập trung, nhanh gọn và an toàn."
+  },
+  "site_content": {
+    "nav_apps": "Phần mềm",
+    "nav_docs": "Tài liệu",
+    "nav_changelog": "Nhật ký",
+    "nav_admin": "Quản trị",
+    "hero_badge": "Hệ sinh thái chuẩn hóa máy trạm",
+    "hero_title": "Cài đặt & Chuẩn hóa Máy trạm",
+    "hero_highlight": "Tự động & Thông minh",
+    "hero_subtitle": "Giải pháp đồng bộ hóa phần mềm văn phòng, y tế, chữ ký số và driver thiết bị ngoại vi tập trung, nhanh gọn và an toàn.",
+    "btn_download_primary": "Tải Phần mềm AllSoft Desktop cho Windows",
+    "btn_download_portable": "Bản Portable (.exe)",
+    "hero_version_note": "Phiên bản 1.0.0 · Dành cho Windows 10 & 11 (64-bit)",
+    "ps_title": "Cài nhanh bằng 1 dòng lệnh PowerShell (Run as Administrator)",
+    "ps_note": "Mở PowerShell bằng quyền Quản trị viên và dán lệnh để cài đặt tự động.",
+    "ps_admin_link": "Tùy chỉnh kho phần mềm →",
+    "profiles_eyebrow": "GÓI PHẦN MỀM THEO VỊ TRÍ CÔNG TÁC",
+    "profiles_title": "Hồ sơ Triển khai (Profiles)",
+    "profiles_subtitle": "Chọn hồ sơ bên dưới để lọc nhanh danh sách phần mềm tiêu chuẩn theo từng phòng ban",
+    "catalog_eyebrow": "KHO PHẦN MỀM CHUẨN HÓA",
+    "catalog_title": "Danh mục Phần mềm",
+    "catalog_search_placeholder": "Tìm phần mềm, mã winget, mô tả...",
+    "footer_desc": "Giải pháp chuẩn hóa máy trạm, tự động hóa cài đặt, bảo trì hệ thống và quản trị phần mềm tập trung dành cho bệnh viện, cơ quan hành chính và doanh nghiệp.",
+    "footer_nav_title": "Điều hướng Hệ thống",
+    "footer_infra_title": "Hạ tầng & Phát hành",
+    "footer_copyright": "© 2026 AllSoft Desktop · Created By Mr. Dương"
+  },
+  "launcher": {
+    "name": "AllSoft Desktop",
+    "version": "1.0.0",
+    "release_url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/latest",
+    "downloads": {
+      "windows": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/latest/download/AllSoftDesktop-Setup.exe",
+      "windows_portable": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/latest/download/AllSoftDesktop-Portable.exe"
+    }
+  },
+  "profiles": [
+    {
+      "id": "office",
+      "name": "Máy Văn phòng",
+      "description": "Trình duyệt, Office, nén file, hỗ trợ từ xa, chụp màn hình.",
+      "apps": [
+        "coccoc",
+        "onlyoffice",
+        "winrar",
+        "ultraviewer",
+        "lightshot"
+      ]
+    },
+    {
+      "id": "accounting",
+      "name": "Máy Kế toán",
+      "description": "Bộ Văn phòng + chữ ký số VNPT-CA + VNeGP.",
+      "apps": [
+        "coccoc",
+        "onlyoffice",
+        "winrar",
+        "ultraviewer",
+        "vnpt-ca",
+        "vnegp-agent"
+      ]
+    },
+    {
+      "id": "reception",
+      "name": "Máy Lễ tân",
+      "description": "Bộ cơ bản + driver máy in hoá đơn và máy in màu.",
+      "apps": [
+        "coccoc",
+        "ultraviewer",
+        "xprinter-driver",
+        "epson-l8050"
+      ]
+    },
+    {
+      "id": "technician",
+      "name": "Máy Kỹ thuật",
+      "description": "Công cụ kiểm tra phần cứng và hỗ trợ.",
+      "apps": [
+        "cpu-z",
+        "ultraviewer",
+        "winrar",
+        "lightshot"
+      ]
+    }
+  ],
+  "apps": [
+    {
+      "id": "coccoc",
+      "name": "Cốc Cốc",
+      "description": "Trình duyệt web tối ưu cho người Việt.",
+      "category": "Trình duyệt",
+      "source": "winget",
+      "winget": {
+        "id": "CocCoc.CocCoc",
+        "scope": "machine"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://coccoc.com",
+      "docs_slug": "coccoc",
+      "detect": {
+        "display_names": [
+          "Cốc Cốc",
+          "CocCoc"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "onlyoffice",
+      "name": "ONLYOFFICE Desktop Editors",
+      "description": "Bộ soạn thảo văn bản, bảng tính, trình chiếu tương thích MS Office.",
+      "category": "Văn phòng",
+      "source": "winget",
+      "winget": {
+        "id": "ONLYOFFICE.DesktopEditors",
+        "scope": "machine"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://github.com/ONLYOFFICE/DesktopEditors/releases",
+      "docs_slug": "onlyoffice",
+      "detect": {
+        "display_names": [
+          "ONLYOFFICE"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "winrar",
+      "name": "WinRAR",
+      "description": "Nén và giải nén RAR/ZIP.",
+      "category": "Tiện ích",
+      "source": "winget",
+      "winget": {
+        "id": "RARLab.WinRAR",
+        "scope": "machine"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://www.rarlab.com/rarnew.htm",
+      "docs_slug": "winrar",
+      "detect": {
+        "display_names": [
+          "WinRAR"
+        ],
+        "registry_keys": [],
+        "install_paths": [
+          "C:\\Program Files\\WinRAR\\WinRAR.exe"
+        ]
+      }
+    },
+    {
+      "id": "ultraviewer",
+      "name": "UltraViewer",
+      "description": "Điều khiển máy tính từ xa, hỗ trợ kỹ thuật.",
+      "category": "Hỗ trợ từ xa",
+      "source": "winget",
+      "winget": {
+        "id": "DucFabulous.UltraViewer",
+        "scope": "machine"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://www.ultraviewer.net",
+      "docs_slug": "ultraviewer",
+      "detect": {
+        "display_names": [
+          "UltraViewer"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "lightshot",
+      "name": "Lightshot",
+      "description": "Chụp màn hình nhanh bằng phím PrtSc.",
+      "category": "Tiện ích",
+      "source": "winget",
+      "winget": {
+        "id": "Skillbrains.Lightshot"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://app.prntscr.com",
+      "docs_slug": "lightshot",
+      "detect": {
+        "display_names": [
+          "Lightshot"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "cpu-z",
+      "name": "CPU-Z",
+      "description": "Xem thông tin CPU, RAM, mainboard.",
+      "category": "Kỹ thuật",
+      "source": "winget",
+      "winget": {
+        "id": "CPUID.CPU-Z",
+        "scope": "machine"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://www.cpuid.com/softwares/cpu-z.html",
+      "docs_slug": "cpu-z",
+      "detect": {
+        "display_names": [
+          "CPUID CPU-Z"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "vnpt-ca",
+      "name": "VNPT-CA Token Manager",
+      "description": "Driver và trình quản lý chữ ký số VNPT-CA (USB Token).",
+      "category": "Chữ ký số",
+      "source": "direct",
+      "direct": {
+        "url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/download/apps-v1/VNPT-CA-Setup.exe",
+        "installer_type": "exe",
+        "silent_args": [
+          "/S"
+        ],
+        "sha256": null
+      },
+      "version": "1.0.0",
+      "dependencies": [
+        "vcredist-x64"
+      ],
+      "uninstall": {
+        "mode": "registry",
+        "args": [
+          "/S"
+        ]
+      },
+      "changelog_url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/tag/apps-v1",
+      "docs_slug": "vnpt-ca",
+      "detect": {
+        "display_names": [
+          "VNPT-CA"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "vnegp-agent",
+      "name": "VNeGP Client Agent",
+      "description": "Phần mềm hỗ trợ ký số trên Hệ thống mạng đấu thầu quốc gia.",
+      "category": "Chữ ký số",
+      "source": "direct",
+      "direct": {
+        "url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/download/apps-v1/VNeGP-Client-Agent-2.0.1.exe",
+        "installer_type": "exe",
+        "silent_args": [
+          "/VERYSILENT",
+          "/NORESTART"
+        ],
+        "sha256": null
+      },
+      "version": "2.0.1",
+      "dependencies": [
+        "dotnet-desktop-8"
+      ],
+      "uninstall": {
+        "mode": "registry",
+        "args": [
+          "/VERYSILENT",
+          "/NORESTART"
+        ]
+      },
+      "changelog_url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/tag/apps-v1",
+      "docs_slug": "vnegp-agent",
+      "detect": {
+        "display_names": [
+          "VNeGP Client Agent"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "xprinter-driver",
+      "name": "XPrinter Driver 8.2",
+      "description": "Driver máy in nhiệt/hoá đơn XPrinter (ghim bản 8.2).",
+      "category": "Driver",
+      "source": "direct",
+      "direct": {
+        "url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/download/apps-v1/XPrinter-Driver-8.2.exe",
+        "installer_type": "exe",
+        "silent_args": [
+          "/VERYSILENT",
+          "/SUPPRESSMSGBOXES",
+          "/NORESTART"
+        ],
+        "sha256": null
+      },
+      "version": "8.2",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "registry",
+        "args": [
+          "/VERYSILENT"
+        ]
+      },
+      "changelog_url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/tag/apps-v1",
+      "docs_slug": "xprinter-driver",
+      "detect": {
+        "display_names": [
+          "XPrinter Driver"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "epson-l8050",
+      "name": "EPSON L8050 Driver",
+      "description": "Driver máy in màu EPSON L8050 Series.",
+      "category": "Driver",
+      "source": "direct",
+      "direct": {
+        "url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/download/apps-v1/EPSON-L8050-Driver.exe",
+        "installer_type": "exe",
+        "silent_args": [
+          "/S"
+        ],
+        "sha256": null
+      },
+      "version": "1.0.0",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "registry",
+        "args": []
+      },
+      "changelog_url": "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/tag/apps-v1",
+      "docs_slug": "epson-l8050",
+      "detect": {
+        "display_names": [
+          "EPSON L8050 Series"
+        ],
+        "registry_keys": [],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "vcredist-x64",
+      "name": "Visual C++ Redistributable 2015-2022 (x64)",
+      "description": "Thư viện runtime C++ cho nhiều phần mềm.",
+      "category": "Nền tảng",
+      "hidden": true,
+      "source": "winget",
+      "winget": {
+        "id": "Microsoft.VCRedist.2015+.x64"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "none"
+      },
+      "changelog_url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+      "detect": {
+        "display_names": [
+          "Microsoft Visual C++ 2015-2022 Redistributable (x64)",
+          "Microsoft Visual C++ 2015-2019 Redistributable (x64)",
+          "Microsoft Visual C++ v14 Redistributable (x64)"
+        ],
+        "registry_keys": [
+          "HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\X64"
+        ],
+        "install_paths": []
+      }
+    },
+    {
+      "id": "dotnet-desktop-8",
+      "name": ".NET Desktop Runtime 8",
+      "description": "Nền tảng .NET 8 cho ứng dụng Windows.",
+      "category": "Nền tảng",
+      "hidden": true,
+      "source": "winget",
+      "winget": {
+        "id": "Microsoft.DotNet.DesktopRuntime.8"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "none"
+      },
+      "changelog_url": "https://dotnet.microsoft.com/download/dotnet/8.0",
+      "detect": {
+        "display_names": [
+          "Microsoft Windows Desktop Runtime - 8."
+        ],
+        "registry_keys": [],
+        "install_paths": [
+          "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App"
+        ]
+      }
+    },
+    {
+      "id": "nodejs-lts",
+      "name": "Node.js LTS",
+      "description": "Nền tảng JavaScript runtime.",
+      "category": "Nền tảng",
+      "hidden": true,
+      "source": "winget",
+      "winget": {
+        "id": "OpenJS.NodeJS.LTS",
+        "scope": "machine"
+      },
+      "version": "latest",
+      "dependencies": [],
+      "uninstall": {
+        "mode": "winget"
+      },
+      "changelog_url": "https://nodejs.org/en/blog/release",
+      "detect": {
+        "display_names": [
+          "Node.js"
+        ],
+        "registry_keys": [],
+        "install_paths": [
+          "C:\\Program Files\\nodejs\\node.exe"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "allsoftdesktop-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:catalog": "node scripts/validate-catalog.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.9.1"
+  }
+}

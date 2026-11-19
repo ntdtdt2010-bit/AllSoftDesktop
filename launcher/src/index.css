@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --bg-ivory: #FDFBF7;
+  --bg-surface: #FFFFFF;
+  --border-gold: #EAE2CE;
+  --gold-primary: #B5943B;
+  --gold-light: #C5A044;
+  --gold-dark: #9A7B2C;
+  --charcoal: #2B2B2B;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: #FDFBF7;
+  color: #2B2B2B;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+::-webkit-scrollbar-thumb {
+  background: #DFD3B6;
+  border-radius: 9999px;
+  border: 2px solid #FDFBF7;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B5943B;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastPop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes shimmerGold {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.header-glass {
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+
+.tab-panel-enter {
+  animation: tabFadeIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-item {
+  animation: fadeSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.card-lift {
+  position: relative;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.card-lift:hover {
+  z-index: 2;
+  transform: translateY(-2px);
+  border-color: #D4B46A;
+  box-shadow:
+    0 10px 24px -8px rgba(181, 148, 59, 0.24),
+    0 2px 8px -2px rgba(43, 43, 43, 0.05),
+    inset 0 0 0 1px rgba(197, 160, 68, 0.38);
+}
+
+.toast-enter {
+  animation: toastPop 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.progress-smooth {
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}

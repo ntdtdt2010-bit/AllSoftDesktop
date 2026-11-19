@@ -1,0 +1,67 @@
+name: Deploy Pages (Portal + Docs)
+
+on:
+  push:
+    branches: [main]
+    paths: ["portal/**", "docs/**", "catalog/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            portal/package-lock.json
+            docs/package-lock.json
+
+      - name: Build Portal (Next.js static export, basePath /AllSoftDesktop)
+        working-directory: portal
+        env:
+          CHANGELOG_PASSWORD: ${{ secrets.CHANGELOG_PASSWORD }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Docs (Docusaurus, baseUrl /AllSoftDesktop/docs/)
+        working-directory: docs
+        run: |
+          npm ci
+          npm run build
+
+      - name: Gộp Portal + Docs
+        run: |
+          mkdir -p site
+          cp -r portal/out/. site/
+          mkdir -p site/docs
+          cp -r docs/build/. site/docs/
+          cp catalog/apps.json site/apps.json
+          touch site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

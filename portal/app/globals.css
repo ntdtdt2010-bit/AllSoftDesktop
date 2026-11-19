@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-page: #FDFBF7;
+    --bg-surface: #FFFFFF;
+    --text-primary: #2D2D2D;
+    --text-secondary: #5C5649;
+    --border-color: #EAE2CE;
+    --card-bg: #FFFFFF;
+    --accent: #B5943B;
+    --accent-light: #C5A044;
+    --accent-dark: #9A7B2C;
+    --badge-bg: #FBF7EC;
+    --badge-text: #8A6D23;
+    --charcoal: #2B2B2B;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Smooth Micro-interactions & Luxury Gold Effects */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+@keyframes subtlePulseGold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(181, 148, 59, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(181, 148, 59, 0);
+  }
+}
+
+@keyframes heroAuraFloat {
+  0%, 100% {
+    transform: translate3d(-50%, -50%, 0) scale(1) rotate(0deg);
+    opacity: 0.72;
+  }
+  50% {
+    transform: translate3d(-48%, -52%, 0) scale(1.08) rotate(6deg);
+    opacity: 0.95;
+  }
+}
+
+@keyframes modalSpring {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes toastSlideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(24px, 8px, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay-100 {
+  animation-delay: 80ms;
+}
+.delay-200 {
+  animation-delay: 160ms;
+}
+.delay-300 {
+  animation-delay: 240ms;
+}
+.delay-400 {
+  animation-delay: 320ms;
+}
+
+/* Nền ánh vàng ngọc trai chuyển động chậm ở phần Hero */
+.hero-mesh-aura {
+  background:
+    radial-gradient(circle at 28% 35%, rgba(197, 160, 68, 0.22) 0%, rgba(251, 247, 236, 0.08) 45%, transparent 72%),
+    radial-gradient(circle at 72% 62%, rgba(181, 148, 59, 0.16) 0%, rgba(234, 226, 206, 0.12) 48%, transparent 75%),
+    radial-gradient(circle at 50% 50%, rgba(255, 252, 242, 0.85) 0%, transparent 70%);
+  filter: blur(42px);
+  animation: heroAuraFloat 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Thẻ tiêu chuẩn sang trọng */
+.card-luxury {
+  background-color: #FFFFFF;
+  border: 1px solid #EAE2CE;
+  box-shadow:
+    0 2px 6px -2px rgba(45, 45, 45, 0.04),
+    0 8px 20px -8px rgba(138, 109, 35, 0.08);
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease;
+}
+
+.card-luxury:hover {
+  transform: translateY(-4px);
+  border-color: #C5A044;
+  box-shadow:
+    0 6px 16px -4px rgba(45, 45, 45, 0.06),
+    0 18px 36px -12px rgba(181, 148, 59, 0.22);
+}
+
+/* Thẻ phần mềm nổi 3D mượt với viền ánh vàng đồng & bóng đổ đa tầng ấm áp */
+.card-spotlight {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE2CE;
+  box-shadow:
+    0 1px 3px rgba(45, 45, 45, 0.03),
+    0 6px 18px -6px rgba(138, 109, 35, 0.08);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(197, 160, 68, 0.55) 0%,
+    rgba(251, 247, 236, 0.2) 50%,
+    rgba(181, 148, 59, 0.45) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.card-spotlight:hover {
+  transform: translateY(-5px) scale(1.008);
+  border-color: rgba(197, 160, 68, 0.85);
+  box-shadow:
+    0 4px 10px -2px rgba(45, 45, 45, 0.05),
+    0 14px 28px -8px rgba(181, 148, 59, 0.18),
+    0 24px 48px -16px rgba(138, 109, 35, 0.16);
+}
+
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Hiệu ứng mở Modal bung lò xo nhẹ nhàng */
+.modal-spring {
+  animation: modalSpring 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Thông báo trượt mượt góc màn hình */
+.toast-slide {
+  animation: toastSlideIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.btn-shimmer:active {
+  transform: scale(0.98);
+}
+
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-120%) skewX(-18deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-shimmer:hover::after {
+  animation: shimmerSweep 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop-luxury {
+  background-color: rgba(43, 43, 43, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Custom subtle Royal Gold scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8C9A3;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B5943B;
+}
