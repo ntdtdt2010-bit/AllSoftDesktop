@@ -1,4 +1,4 @@
-﻿node_modules/
+node_modules/
 dist/
 .next/
 out/
@@ -17,3 +17,4 @@ _backup_v1.zip
 capture-all.mjs
 packages/
 Backups/
+*.tsbuildinfo

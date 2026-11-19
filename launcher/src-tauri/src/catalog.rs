@@ -80,6 +80,8 @@ pub struct App {
     #[serde(default)]
     pub docs_slug: Option<String>,
     #[serde(default)]
+    pub offline_filename: Option<String>,
+    #[serde(default)]
     pub detect: DetectSpec,
 }
 

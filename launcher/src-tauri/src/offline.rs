@@ -33,8 +33,23 @@ pub fn scan(dir: &Path) -> Vec<PathBuf> {
     v
 }
 
-/// Khớp file với app: tên bắt đầu bằng id/winget-id, hoặc trùng tên file trong download_url.
+/// Khớp file với app: ưu tiên khớp offline_filename trước, sau đó tên bắt đầu bằng id/winget-id, hoặc trùng tên file trong download_url.
 pub fn find_package<'a>(files: &'a [PathBuf], app: &App) -> Option<&'a PathBuf> {
+    if let Some(offline_name) = app
+        .offline_filename
+        .as_deref()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+    {
+        let target = offline_name.to_lowercase();
+        if let Some(found) = files.iter().find(|f| {
+            f.file_name()
+                .map(|s| s.to_string_lossy().to_lowercase() == target)
+                .unwrap_or(false)
+        }) {
+            return Some(found);
+        }
+    }
     let id = app.id.to_lowercase();
     let wid = app.winget.as_ref().map(|w| w.id.to_lowercase());
     let url_name = app

@@ -1,6 +1,6 @@
 [package]
 name = "allsoft-desktop"
-version = "1.0.0"
+version = "2.8.0"
 description = "AllSoft Desktop Launcher"
 edition = "2021"
 

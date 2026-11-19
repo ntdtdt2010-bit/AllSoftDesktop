@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import {
   AlertCircle,
-  Award,
   Eye,
   EyeOff,
   History,
@@ -119,7 +118,7 @@ export default function ChangelogPage() {
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#FBF7EC] text-[#8A6D23] border border-[#EAE2CE] mb-3">
           <History className="w-3.5 h-3.5 text-[#B5943B]" />
-          <span>Internal Security Changelog · Created By Mr. Dương</span>
+          <span>Nhật ký bảo mật nội bộ</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#2D2D2D]">
           Nhật ký Phát triển Hệ thống
@@ -132,16 +131,14 @@ export default function ChangelogPage() {
       {!markdownContent ? (
         /* KHỐI FORM NHẬP TÀI KHOẢN & MẬT KHẨU */
         <div className="max-w-md mx-auto card-luxury rounded-2xl p-8 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#FBF7EC] border border-[#EAE2CE] flex items-center justify-center mx-auto mb-4 p-2 shadow-xs">
-            <img
-              src="/AllSoftDesktop/logo.png"
-              alt="Mr. Dương Logo"
-              className="w-full h-full object-contain"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
-          </div>
+          <img
+            src="/AllSoftDesktop/logo.png"
+            alt="Mr. Dương"
+            className="w-[200px] min-w-[200px] h-auto object-contain mx-auto mb-5"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+            }}
+          />
 
           <h2 className="text-lg font-extrabold text-[#2D2D2D] mb-1">
             Xác thực Mở khóa Nhật ký
@@ -166,7 +163,7 @@ export default function ChangelogPage() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
+                  placeholder="Nhập tài khoản quản trị..."
                   className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-[#EAE2CE] bg-[#FDFBF7] text-[#2D2D2D] focus:border-[#B5943B] focus:ring-2 focus:ring-[#B5943B]/20 focus:outline-none"
                 />
                 <User className="w-4 h-4 text-[#B5943B] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -222,11 +219,6 @@ export default function ChangelogPage() {
               )}
             </button>
           </form>
-
-          <div className="mt-6 pt-5 border-t border-[#EAE2CE] flex items-center justify-center gap-1.5 text-[11px] text-[#8A6D23] font-medium">
-            <Award className="w-3.5 h-3.5 text-[#B5943B]" />
-            <span>Created By Mr. Dương · Creative X Technology</span>
-          </div>
         </div>
       ) : (
         /* NỘI DUNG ĐÃ ĐƯỢC GIẢI MÃ HOÀN TOÀN */

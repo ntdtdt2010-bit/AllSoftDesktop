@@ -218,7 +218,7 @@ export function Footer() {
                   rel="noreferrer"
                   className="hover:text-[#B5943B] font-medium transition-colors"
                 >
-                  Bản phát hành Launcher mới nhất
+                  Bản phát hành AllSoft Desktop mới nhất
                 </a>
               </li>
               <li>

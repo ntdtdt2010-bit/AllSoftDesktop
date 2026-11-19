@@ -100,7 +100,7 @@ const DEFAULT_SITE_CONTENT: SiteContent = {
     "Giải pháp đồng bộ hóa phần mềm văn phòng, y tế, chữ ký số và driver thiết bị ngoại vi tập trung, nhanh gọn và an toàn.",
   btn_download_primary: "Tải Phần mềm AllSoft Desktop cho Windows",
   btn_download_portable: "Bản Portable (.exe)",
-  hero_version_note: "Phiên bản 1.0.0 · Dành cho Windows 10 & 11 (64-bit)",
+  hero_version_note: "Phiên bản 2.8.0 · Dành cho Windows 10 & 11 (64-bit)",
   ps_title: "Cài nhanh bằng 1 dòng lệnh PowerShell (Run as Administrator)",
   ps_note: "Mở PowerShell bằng quyền Quản trị viên và dán lệnh để cài đặt tự động.",
   ps_admin_link: "Tùy chỉnh kho phần mềm →",
@@ -369,7 +369,7 @@ export default function AdminStudioPage() {
         sessionStorage.setItem("allsoft_admin_logged_in", "true");
         sessionStorage.setItem("allsoft_changelog_auth", cleanPass);
         setIsLoggedIn(true);
-        showToast("Đăng nhập Visual Admin Studio thành công!", "success");
+        showToast("Đăng nhập Trung tâm Quản trị thành công!", "success");
       } else {
         setLoginError("Mật khẩu Quản trị viên không chính xác. Vui lòng kiểm tra lại!");
       }
@@ -1047,7 +1047,7 @@ export default function AdminStudioPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: `chore(catalog): cập nhật danh mục phần mềm từ Visual Admin Studio (${new Date().toLocaleDateString("vi-VN")})`,
+          message: `chore(catalog): cập nhật danh mục phần mềm từ Trung tâm Quản trị (${new Date().toLocaleDateString("vi-VN")})`,
           content: base64Content,
           sha: currentSha,
           branch: ghBranch.trim() || "main",
@@ -1184,7 +1184,7 @@ export default function AdminStudioPage() {
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FBF7EC] border border-[#EAE2CE] text-[#8A6D23] text-[11px] font-bold mb-2">
             <Shield className="w-3.5 h-3.5 text-[#B5943B]" />
-            <span>VISUAL ADMIN STUDIO</span>
+            <span>Trung tâm Quản trị</span>
           </div>
 
           <h1 className="text-2xl font-extrabold text-[#2D2D2D]">
@@ -1204,7 +1204,7 @@ export default function AdminStudioPage() {
                   type="text"
                   value={loginUser}
                   onChange={(e) => setLoginUser(e.target.value)}
-                  placeholder="admin"
+                  placeholder="Nhập tài khoản quản trị..."
                   className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-[#EAE2CE] bg-[#FDFBF7] text-[#2D2D2D] focus:border-[#B5943B] focus:ring-2 focus:ring-[#B5943B]/20 focus:outline-none"
                 />
                 <User className="w-4 h-4 text-[#B5943B] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1300,7 +1300,7 @@ export default function AdminStudioPage() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FBF7EC] border border-[#EAE2CE] text-[#8A6D23] text-[10px] font-bold uppercase tracking-wider mb-1">
               <Sparkles className="w-3 h-3 text-[#B5943B]" />
-              <span>Visual Admin Studio</span>
+              <span>Trung tâm Quản trị</span>
             </div>
             <h1 className="text-xl sm:text-2xl font-extrabold text-[#2D2D2D]">
               Trung tâm Quản trị Phần mềm & Thương hiệu
@@ -1637,7 +1637,7 @@ export default function AdminStudioPage() {
                     </span>
                   </div>
                   <p className="text-[11px] text-[#5C5649] mb-4">
-                    Hiển thị trực tiếp trên thanh điều hướng, chân trang, trang Tài liệu và Desktop Launcher.
+                    Hiển thị trực tiếp trên thanh điều hướng, chân trang, trang Tài liệu và Phần mềm AllSoft Desktop.
                   </p>
 
                   <div className="w-full min-h-[108px] py-4 px-4 rounded-xl bg-white border border-[#EAE2CE] flex items-center justify-center shadow-2xs">
@@ -2553,7 +2553,7 @@ export default function AdminStudioPage() {
                 <div className="p-3.5 rounded-2xl bg-[#FBF7EC] border border-[#EAE2CE] flex items-start gap-2.5 text-xs text-[#8A6D23] leading-relaxed">
                   <Info className="w-4 h-4 text-[#B5943B] shrink-0 mt-0.5" />
                   <span>
-                    Desktop Launcher sẽ tự động tải &amp; cài bản mới nhất trực tiếp từ kho{" "}
+                    Phần mềm AllSoft Desktop sẽ tự động tải &amp; cài bản mới nhất trực tiếp từ kho{" "}
                     <strong>Microsoft Winget</strong> thông qua Mã Winget ID (không cần upload file bộ cài).
                   </span>
                 </div>

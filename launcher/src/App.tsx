@@ -419,8 +419,8 @@ export default function App() {
                   {specs.cpu_threads} luồng
                 </span>
               </div>
-              <p className="truncate text-xs font-semibold text-[#2B2B2B]" title={`${specs.cpu_name} · ${specs.cpu_threads} luồng`}>
-                {specs.cpu_name} · {specs.cpu_threads} luồng
+              <p className="truncate text-xs font-semibold text-[#2B2B2B]" title={specs.cpu_name}>
+                {specs.cpu_name}
               </p>
             </div>
           </div>
@@ -433,7 +433,7 @@ export default function App() {
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-[#2B2B2B]">
-                  RAM: {specs.ram_used_gb.toFixed(1)} / {specs.ram_total_gb.toFixed(1)} GB
+                  {specs.ram_used_gb.toFixed(1)} / {specs.ram_total_gb.toFixed(1)} GB
                 </span>
                 <span className="text-[11px] font-bold text-[#9A7B2C]">({specs.ram_percent}%)</span>
               </div>
@@ -449,7 +449,7 @@ export default function App() {
           {/* DISK C: */}
           <div className="card-lift flex items-center gap-3 rounded-xl border border-[#EAE2CE] bg-white px-3.5 py-2 shadow-[0_1px_3px_rgba(43,43,43,0.03)]">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#FAF3DF] text-xs font-bold text-[#9A7B2C] ring-1 ring-[#E5D3A7]">
-              SSD
+              DISK
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between text-xs">
@@ -527,7 +527,7 @@ export default function App() {
                             : "bg-[#EAE2CE]/70 text-[#6E6450]"
                         }`}
                       >
-                        {p.apps.length} PM
+                        {p.apps.length} ứng dụng
                       </span>
                     </div>
                     <div
@@ -739,60 +739,67 @@ export default function App() {
       )}
 
       {/* FOOTER */}
-      <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-[#EAE2CE] bg-white/95 px-6 py-3 backdrop-blur-sm">
-        <div className="flex min-w-0 items-center gap-2.5 text-xs text-[#6E6450]">
-          <button
-            type="button"
-            onClick={chooseDir}
-            className="shrink-0 rounded-xl border border-[#DFC992] bg-[#FAF3DF] px-3 py-1.5 font-semibold text-[#8A6D1F] transition-all duration-150 hover:bg-[#F3E6C3] active:scale-[0.98]"
-          >
-            📁 Thư mục packages…
-          </button>
-          <span className="truncate font-mono text-[11px] text-[#2B2B2B]" title={packagesDir}>
-            {packagesDir}
-          </span>
-          <span className="shrink-0 rounded-md bg-stone-100 px-2 py-0.5 text-[11px] font-semibold text-[#5C5446]">
-            {offlineIds.size} gói offline
-          </span>
-          <span className="text-[#D4C39A]" aria-hidden="true">·</span>
-          <span className="shrink-0 text-[11px] font-medium text-[#8A7E66]">
-            © 2026 Created By Mr. Dương
-          </span>
-        </div>
+      {activeTab === "catalog" ? (
+        <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-[#EAE2CE] bg-white/95 px-6 py-3 backdrop-blur-sm">
+          <div className="flex min-w-0 items-center gap-2.5 text-xs text-[#6E6450]">
+            <button
+              type="button"
+              onClick={chooseDir}
+              className="shrink-0 rounded-xl border border-[#DFC992] bg-[#FAF3DF] px-3 py-1.5 font-semibold text-[#8A6D1F] transition-all duration-150 hover:bg-[#F3E6C3] active:scale-[0.98]"
+            >
+              📁 Thư mục packages…
+            </button>
+            <span className="truncate font-mono text-[11px] text-[#2B2B2B]" title={packagesDir}>
+              {packagesDir}
+            </span>
+            <span className="shrink-0 rounded-md bg-stone-100 px-2 py-0.5 text-[11px] font-semibold text-[#5C5446]">
+              {offlineIds.size} gói offline
+            </span>
+            <span className="text-[#D4C39A]" aria-hidden="true">·</span>
+            <span className="shrink-0 text-[11px] font-medium text-[#8A7E66]">
+              © 2026 Created By Mr. Dương
+            </span>
+          </div>
 
-        <div className="flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            onClick={exportWorkstationInventory}
-            className="rounded-xl border border-[#EAE2CE] bg-[#FDFBF7] px-3.5 py-2 text-xs font-semibold text-[#2B2B2B] transition-all duration-150 hover:border-[#B5943B] hover:bg-[#FAF3DF]/60 active:scale-[0.98]"
-          >
-            Xuất kiểm kê máy trạm
-          </button>
-          <button
-            type="button"
-            onClick={report}
-            className="rounded-xl border border-[#EAE2CE] bg-white px-3.5 py-2 text-xs font-semibold text-[#5C5446] transition-all duration-150 hover:bg-stone-50 active:scale-[0.98]"
-          >
-            Xuất báo cáo
-          </button>
-          <button
-            type="button"
-            onClick={() => run(updatable, true)}
-            disabled={busy || !updatable.length}
-            className="rounded-xl border border-[#DFC992] bg-[#FAF3DF] px-3.5 py-2 text-xs font-bold text-[#8A6D1F] transition-all duration-150 hover:bg-[#F3E6C3] active:scale-[0.98] disabled:opacity-40"
-          >
-            Cập nhật ({updatable.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => run([...selected], false)}
-            disabled={busy || !selected.size}
-            className="rounded-xl bg-gradient-to-r from-[#C5A044] to-[#9A7B2C] px-5 py-2 text-xs font-bold text-white shadow-md transition-all duration-150 hover:brightness-105 active:scale-[0.98] disabled:opacity-40"
-          >
-            {busy ? "Đang cài đặt…" : `Cài đặt (${selected.size})`}
-          </button>
-        </div>
-      </footer>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={exportWorkstationInventory}
+              className="rounded-xl border border-[#EAE2CE] bg-[#FDFBF7] px-3.5 py-2 text-xs font-semibold text-[#2B2B2B] transition-all duration-150 hover:border-[#B5943B] hover:bg-[#FAF3DF]/60 active:scale-[0.98]"
+            >
+              Xuất kiểm kê máy trạm
+            </button>
+            <button
+              type="button"
+              onClick={report}
+              className="rounded-xl border border-[#EAE2CE] bg-white px-3.5 py-2 text-xs font-semibold text-[#5C5446] transition-all duration-150 hover:bg-stone-50 active:scale-[0.98]"
+            >
+              Xuất báo cáo
+            </button>
+            <button
+              type="button"
+              onClick={() => run(updatable, true)}
+              disabled={busy || !updatable.length}
+              className="rounded-xl border border-[#DFC992] bg-[#FAF3DF] px-3.5 py-2 text-xs font-bold text-[#8A6D1F] transition-all duration-150 hover:bg-[#F3E6C3] active:scale-[0.98] disabled:opacity-40"
+            >
+              Cập nhật ({updatable.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => run([...selected], false)}
+              disabled={busy || !selected.size}
+              className="rounded-xl bg-gradient-to-r from-[#C5A044] to-[#9A7B2C] px-5 py-2 text-xs font-bold text-white shadow-md transition-all duration-150 hover:brightness-105 active:scale-[0.98] disabled:opacity-40"
+            >
+              {busy ? "Đang cài đặt…" : `Cài đặt (${selected.size})`}
+            </button>
+          </div>
+        </footer>
+      ) : (
+        <footer className="flex items-center justify-between gap-4 border-t border-[#EAE2CE] bg-white/95 px-6 py-2.5 text-[11px] font-medium text-[#8A7E66] backdrop-blur-sm">
+          <span>AllSoft Desktop v{catalog?.launcher.version || "2.8.0"}</span>
+          <span>© 2026 Created By Mr. Dương</span>
+        </footer>
+      )}
 
       {toast && (
         <div className="toast-enter fixed bottom-16 left-1/2 z-50 -translate-x-1/2 rounded-xl border border-[#DFC992] bg-[#2B2B2B] px-4 py-2.5 text-xs font-semibold text-[#FAF3DF] shadow-xl">

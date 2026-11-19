@@ -43,7 +43,7 @@ const config = {
         },
         items: [
           { to: "/", label: "Tổng quan", position: "left" },
-          { to: "/launcher", label: "Launcher", position: "left" },
+          { to: "/launcher", label: "Phần mềm Desktop", position: "left" },
           { to: "/powershell", label: "Lệnh PowerShell", position: "left" },
           { to: "/offline-usb", label: "Offline / USB", position: "left" },
           {
@@ -70,7 +70,7 @@ const config = {
             title: "Tài liệu hướng dẫn",
             items: [
               { label: "Bắt đầu", to: "/" },
-              { label: "Hướng dẫn Launcher", to: "/launcher" },
+              { label: "Hướng dẫn sử dụng phần mềm", to: "/launcher" },
               { label: "Lệnh 1 dòng PowerShell", to: "/powershell" },
               { label: "Chế độ Offline / USB", to: "/offline-usb" },
               { label: "Thêm phần mềm mới", to: "/contributing-apps" },
@@ -80,8 +80,7 @@ const config = {
             title: "Hệ thống AllSoft Desktop",
             items: [
               { label: "Web Portal", href: "https://ntdtdt2010-bit.github.io/AllSoftDesktop/" },
-              { label: "Visual Admin Studio", href: "https://ntdtdt2010-bit.github.io/AllSoftDesktop/admin/" },
-              { label: "Trình sinh cấu hình", href: "https://ntdtdt2010-bit.github.io/AllSoftDesktop/config/" },
+              { label: "Trung tâm Quản trị", href: "https://ntdtdt2010-bit.github.io/AllSoftDesktop/admin/" },
               { label: "Nhật ký phát triển", href: "https://ntdtdt2010-bit.github.io/AllSoftDesktop/changelog/" },
             ],
           },

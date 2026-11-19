@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "AllSoft Desktop",
-  "version": "1.0.0",
+  "version": "2.8.0",
   "identifier": "vn.allsoft.desktop",
   "build": {
     "beforeDevCommand": "npm run dev",

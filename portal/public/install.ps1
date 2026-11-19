@@ -34,12 +34,12 @@ try {
     if (Get-Command winget -ErrorAction SilentlyContinue) {
         Write-Step 'Đã tìm thấy winget.'
     } else {
-        Write-Warn 'Không tìm thấy winget (App Installer). Launcher sẽ chỉ cài được phần mềm tải trực tiếp; hãy cập nhật "App Installer" từ Microsoft Store để dùng đủ tính năng.'
+        Write-Warn 'Không tìm thấy winget (App Installer). AllSoft Desktop sẽ chỉ cài được phần mềm tải trực tiếp; hãy cập nhật "App Installer" từ Microsoft Store để dùng đủ tính năng.'
     }
 
-    # 3. Tải bản Launcher mới nhất
+    # 3. Tải bản AllSoft Desktop mới nhất
     $tmp = Join-Path ([IO.Path]::GetTempPath()) $AssetName
-    Write-Step "Đang tải Launcher mới nhất từ GitHub Releases..."
+    Write-Step "Đang tải AllSoft Desktop mới nhất từ GitHub Releases..."
     Invoke-WebRequest -Uri $Url -OutFile $tmp -UseBasicParsing
     if (-not (Test-Path $tmp) -or (Get-Item $tmp).Length -lt 1MB) {
         throw 'Tệp tải về không hợp lệ (quá nhỏ hoặc không tồn tại).'
@@ -54,8 +54,10 @@ try {
     Remove-Item $tmp -Force -ErrorAction SilentlyContinue
     Write-Step 'Cài đặt hoàn tất.'
 
-    # 5. Mở Launcher (kèm profile nếu có)
+    # 5. Mở AllSoft Desktop (kèm profile nếu có)
     $candidates = @(
+        "$env:ProgramFiles\AllSoft Desktop\allsoft-desktop.exe",
+        "$env:LOCALAPPDATA\AllSoft Desktop\allsoft-desktop.exe",
         "$env:ProgramFiles\AllSoft Desktop\AllSoft Desktop.exe",
         "$env:ProgramFiles\AllSoftDesktop\AllSoftDesktop.exe",
         "$env:LOCALAPPDATA\AllSoft Desktop\AllSoft Desktop.exe"

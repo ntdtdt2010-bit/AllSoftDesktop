@@ -127,7 +127,7 @@ export const defaultSiteContent: SiteContent = {
     "Giải pháp đồng bộ hóa phần mềm văn phòng, y tế, chữ ký số và driver thiết bị ngoại vi tập trung, nhanh gọn và an toàn.",
   btn_download_primary: "Tải Phần mềm AllSoft Desktop cho Windows",
   btn_download_portable: "Bản Portable (.exe)",
-  hero_version_note: "Phiên bản 1.0.0 · Dành cho Windows 10 & 11 (64-bit)",
+  hero_version_note: "Phiên bản 2.8.0 · Dành cho Windows 10 & 11 (64-bit)",
   ps_title: "Cài nhanh bằng 1 dòng lệnh PowerShell (Run as Administrator)",
   ps_note: "Mở PowerShell bằng quyền Quản trị viên và dán lệnh để cài đặt tự động.",
   ps_admin_link: "Tùy chỉnh kho phần mềm →",

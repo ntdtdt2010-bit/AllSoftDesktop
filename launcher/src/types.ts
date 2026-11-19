@@ -132,6 +132,20 @@ export interface CleanerRunResult {
 }
 
 // ===== MODULE 3: CLEAN UNINSTALLER =====
+export interface InstalledProgram {
+  id: string;
+  name: string;
+  version: string;
+  publisher: string;
+  install_date: string;
+  size_mb: number;
+  in_catalog: boolean;
+  catalog_id?: string | null;
+  install_location?: string;
+  uninstall_string?: string | null;
+  quiet_uninstall_string?: string | null;
+}
+
 export type LeftoverKind = "folder" | "file" | "registry";
 
 export interface LeftoverItem {

@@ -12,6 +12,8 @@ import type {
   CliArgs,
   DiagnosticItem,
   DiagnosticReport,
+  DiagnosticSeverity,
+  InstalledProgram,
   LeftoverCleanResult,
   LeftoverItem,
   LeftoverScanResult,
@@ -26,6 +28,8 @@ import type {
   TaskProgress,
   UpdateInfo,
 } from "./types";
+
+export type { InstalledProgram };
 
 const isTauri = () => typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 
@@ -126,19 +130,6 @@ export interface SystemSpecs {
   os_version: string;
 }
 
-export interface InstalledProgram {
-  id: string;
-  name: string;
-  version: string;
-  publisher: string;
-  install_date: string;
-  size_mb: number;
-  in_catalog: boolean;
-  catalog_id?: string | null;
-  uninstall_string?: string | null;
-  quiet_uninstall_string?: string | null;
-}
-
 const MOCK_SYSTEM_SPECS: SystemSpecs = {
   cpu_name: "Intel Core i5-12400",
   cpu_threads: 12,
@@ -160,7 +151,7 @@ const MOCK_CATALOG: Catalog = {
   repo: "ntdtdt2010-bit/AllSoftDesktop",
   launcher: {
     name: "AllSoft Desktop",
-    version: "1.0.0",
+    version: "2.8.0",
   },
   profiles: [
     { id: "office", name: "Máy Văn phòng", description: "Trình duyệt, Office, nén file, hỗ trợ từ xa, chụp màn hình.", apps: ["coccoc", "onlyoffice", "winrar", "ultraviewer", "lightshot"] },
@@ -589,18 +580,26 @@ export const api = {
       try {
         const list = await invoke<Array<Record<string, unknown>>>("list_installed_programs");
         if (Array.isArray(list) && list.length > 0) {
-          return list.map((item, idx) => ({
-            id: String(item.id ?? item.key ?? `prog-${idx}`),
-            name: String(item.name ?? item.display_name ?? "Không rõ tên"),
-            version: String(item.version ?? item.display_version ?? "—"),
-            publisher: String(item.publisher ?? "Không rõ nhà phát hành"),
-            install_date: String(item.install_date ?? "—"),
-            size_mb: Number(item.size_mb ?? (item.estimated_size_kb ? Number(item.estimated_size_kb) / 1024 : 0)),
-            in_catalog: Boolean(item.in_catalog ?? item.is_standard ?? false),
-            catalog_id: item.catalog_id ? String(item.catalog_id) : null,
-            uninstall_string: item.uninstall_string ? String(item.uninstall_string) : null,
-            quiet_uninstall_string: item.quiet_uninstall_string ? String(item.quiet_uninstall_string) : null,
-          }));
+          return list.map((item, idx) => {
+            const catId = item.catalog_app_id ?? item.catalog_id;
+            return {
+              id: String(item.id ?? item.key ?? `prog-${idx}`),
+              name: String(item.name ?? item.display_name ?? "Không rõ tên"),
+              version: String(item.version ?? item.display_version ?? "—"),
+              publisher: String(item.publisher ?? "Không rõ nhà phát hành"),
+              install_date: String(item.install_date ?? "—"),
+              size_mb: Number(
+                item.estimated_size_mb ??
+                  item.size_mb ??
+                  (item.estimated_size_kb ? Number(item.estimated_size_kb) / 1024 : 0)
+              ),
+              in_catalog: Boolean(item.in_catalog ?? item.is_standard ?? Boolean(catId)),
+              catalog_id: catId ? String(catId) : null,
+              install_location: String(item.install_location ?? ""),
+              uninstall_string: item.uninstall_string ? String(item.uninstall_string) : null,
+              quiet_uninstall_string: item.quiet_uninstall_string ? String(item.quiet_uninstall_string) : null,
+            };
+          });
         }
       } catch {
         // Fallback to mockInstalledPrograms if backend command not registered
@@ -613,17 +612,15 @@ export const api = {
     if (isTauri()) {
       try {
         await invoke<void>("uninstall_program", {
-          id: program.id,
-          name: program.name,
-          uninstallString: program.uninstall_string,
-          quietUninstallString: program.quiet_uninstall_string,
+          uninstallCmd: program.uninstall_string || program.quiet_uninstall_string || "",
         });
         return;
-      } catch {
+      } catch (err) {
         if (program.catalog_id) {
           await invoke<void>("uninstall_app", { id: program.catalog_id });
           return;
         }
+        throw err;
       }
     }
     await new Promise((r) => setTimeout(r, 350));
@@ -723,7 +720,7 @@ export const api = {
   checkUpdate: async (): Promise<UpdateInfo> =>
     isTauri()
       ? invoke<UpdateInfo>("check_update")
-      : { available: false, current: "1.0.0", latest: "1.0.0", url: "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/latest" },
+      : { available: false, current: "2.8.0", latest: "2.8.0", url: "https://github.com/ntdtdt2010-bit/AllSoftDesktop/releases/latest" },
 
   applyUpdate: async (): Promise<void> =>
     isTauri() ? invoke<void>("apply_update") : undefined,
@@ -792,7 +789,8 @@ export const api = {
   runDiagnostics: async (): Promise<DiagnosticReport> => {
     previewTaskCancelled = false;
     if (isTauri()) {
-      return invoke<DiagnosticReport>("run_diagnostics");
+      const raw = await invoke<Record<string, unknown>>("run_diagnostics");
+      return normalizeDiagnosticReport(raw);
     }
     const steps: Array<{ step: string; percent: number }> = [
       { step: "Đọc Windows Event Log (System — Kernel-Power, BugCheck, Disk, NTFS)…", percent: 20 },
@@ -997,7 +995,7 @@ export const api = {
       >("scan_leftovers", {
         appName: program.name,
         publisher: program.publisher,
-        installLocation: (program as { install_location?: string }).install_location ?? "",
+        installLocation: program.install_location ?? "",
       });
       const items: LeftoverItem[] = raw.map((r) => ({
         id: r.id,
@@ -1710,5 +1708,60 @@ function normalizePrinterHostProbe(raw: Record<string, unknown>, fallbackHost: s
     latency_ms: raw.latency_ms == null ? null : Number(raw.latency_ms),
     shared_printers,
     message: String(raw.message ?? ""),
+  };
+}
+
+function normalizeDiagnosticReport(raw: Record<string, unknown>): DiagnosticReport {
+  const rawItems = Array.isArray(raw.items) ? raw.items : [];
+  const items: DiagnosticItem[] = rawItems.map((entry, idx) => {
+    const it = (entry ?? {}) as Record<string, unknown>;
+    const rawSev = String(it.severity ?? "ok").toLowerCase();
+    const severity: DiagnosticSeverity =
+      rawSev === "critical" || rawSev === "warning" || rawSev === "ok" ? rawSev : "ok";
+    const rawEventId = it.event_id ?? it.code ?? null;
+    return {
+      id: String(it.id ?? `diag-${idx}`),
+      category: String(it.category ?? "Hệ thống"),
+      severity,
+      source: String(it.source ?? it.code ?? "System"),
+      event_id: rawEventId != null && String(rawEventId) !== "" ? String(rawEventId) : null,
+      title: String(it.title ?? "Sự kiện hệ thống"),
+      count: Number(it.count ?? 0),
+      last_seen: String(it.last_seen ?? "—"),
+      summary: String(it.summary ?? it.detail ?? ""),
+      recommendation: String(it.recommendation ?? ""),
+      details: it.details ? String(it.details) : null,
+    };
+  });
+
+  const summaryObj =
+    raw.summary && typeof raw.summary === "object"
+      ? (raw.summary as Record<string, unknown>)
+      : null;
+
+  const critical_count = Number(
+    summaryObj?.critical ??
+      raw.critical_count ??
+      items.filter((i) => i.severity === "critical").length
+  );
+  const warning_count = Number(
+    summaryObj?.warning ??
+      raw.warning_count ??
+      items.filter((i) => i.severity === "warning").length
+  );
+  const ok_count = Number(
+    summaryObj?.ok ??
+      raw.ok_count ??
+      items.filter((i) => i.severity === "ok").length
+  );
+
+  return {
+    scanned_at: String(raw.scanned_at ?? new Date().toLocaleTimeString("vi-VN")),
+    is_admin: Boolean(raw.is_admin ?? false),
+    critical_count: Number.isFinite(critical_count) ? critical_count : 0,
+    warning_count: Number.isFinite(warning_count) ? warning_count : 0,
+    ok_count: Number.isFinite(ok_count) ? ok_count : 0,
+    items,
+    ai_markdown: String(raw.ai_markdown ?? ""),
   };
 }
