@@ -487,6 +487,9 @@ export default function HomePage() {
                 const docAbsoluteUrl = `${docsBaseUrl}/apps/${slug}/`;
                 const directDownloadUrl = app.direct?.url?.trim() || "";
                 const homeUrl = app.changelog_url?.trim() || "";
+                const downloadHref =
+                  directDownloadUrl || homeUrl || activeCatalog.launcher.downloads.windows;
+                const isDirectFile = Boolean(directDownloadUrl);
 
                 const qrUrl = hasKnownDocs
                   ? docAbsoluteUrl
@@ -537,50 +540,32 @@ export default function HomePage() {
                       )}
 
                       <div className="flex items-center gap-1.5 shrink-0">
-                        {hasKnownDocs && homeUrl && (
-                          <a
-                            href={homeUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="p-1.5 rounded-lg text-[#5C5649] hover:text-[#2D2D2D] hover:bg-[#FBF7EC] active:scale-[0.96] transition-all"
-                            title="Xem trang chủ / nhật ký phát hành"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        )}
-
-                        {hasKnownDocs ? (
+                        {hasKnownDocs && (
                           <a
                             href={docPath}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold text-[#8A6D23] bg-[#FBF7EC] hover:bg-[#F3E9CE] border border-[#EAE2CE] active:scale-[0.98] transition-all"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold text-[#8A6D23] bg-[#FBF7EC] hover:bg-[#F3E9CE] border border-[#EAE2CE] active:scale-[0.98] transition-all"
                             title="Đọc tài liệu hướng dẫn sử dụng"
                           >
                             <BookOpen className="w-3.5 h-3.5 text-[#B5943B]" />
                             <span>Tài liệu</span>
                           </a>
-                        ) : directDownloadUrl ? (
-                          <a
-                            href={directDownloadUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold text-[#8A6D23] bg-[#FBF7EC] hover:bg-[#F3E9CE] border border-[#EAE2CE] active:scale-[0.98] transition-all"
-                            title="Tải trực tiếp bộ cài phần mềm"
-                          >
-                            <Download className="w-3.5 h-3.5 text-[#B5943B]" />
-                            <span>Tải bộ cài</span>
-                          </a>
-                        ) : homeUrl ? (
-                          <a
-                            href={homeUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold text-[#8A6D23] bg-[#FBF7EC] hover:bg-[#F3E9CE] border border-[#EAE2CE] active:scale-[0.98] transition-all"
-                            title="Mở trang chủ phần mềm"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5 text-[#B5943B]" />
-                            <span>Trang chủ</span>
-                          </a>
-                        ) : null}
+                        )}
+
+                        <a
+                          href={downloadHref}
+                          target="_blank"
+                          rel="noreferrer"
+                          {...(isDirectFile ? { download: true } : {})}
+                          className="btn-shimmer inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-[#C5A044] to-[#9A7B2C] hover:brightness-105 shadow-xs active:scale-[0.98] transition-all"
+                          title={
+                            isDirectFile
+                              ? `Tải trực tiếp bộ cài ${app.name}`
+                              : `Mở trang tải chính thức của ${app.name}`
+                          }
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>Tải về</span>
+                        </a>
                       </div>
                     </div>
                   </div>
