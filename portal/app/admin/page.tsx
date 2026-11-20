@@ -255,7 +255,12 @@ export default function AdminStudioPage() {
         const localRaw = localStorage.getItem("allsoft_custom_catalog");
         if (localRaw) {
           const parsed = JSON.parse(localRaw) as ExtendedCatalogData;
-          if (parsed && Array.isArray(parsed.apps)) {
+          const isStaleVersion =
+            parsed?.launcher?.version &&
+            parsed.launcher.version !== staticCatalog.launcher.version;
+          if (isStaleVersion) {
+            localStorage.removeItem("allsoft_custom_catalog");
+          } else if (parsed && Array.isArray(parsed.apps)) {
             const mergedContent = mergeSiteContent(parsed.site_content);
             setCatalogState({ ...parsed, site_content: mergedContent });
             setSiteContentState(mergedContent);
