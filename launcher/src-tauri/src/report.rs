@@ -31,7 +31,15 @@ pub fn to_csv(entries: &[ReportEntry]) -> String {
     // BOM để Excel đọc đúng tiếng Việt
     let mut out = String::from("\u{feff}Thời gian,Mã,Tên,Hành động,Nguồn,Kết quả,Ghi chú\r\n");
     for e in entries {
-        let row = [&e.time, &e.id, &e.name, &e.action, &e.source, if e.success { "Thành công" } else { "Thất bại" }, &e.message]
+        let row = [
+            e.time.as_str(),
+            e.id.as_str(),
+            e.name.as_str(),
+            e.action.as_str(),
+            e.source.as_str(),
+            if e.success { "Thành công" } else { "Thất bại" },
+            e.message.as_str(),
+        ]
             .iter()
             .map(|c| csv_escape(c))
             .collect::<Vec<_>>()
